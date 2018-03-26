@@ -1,0 +1,3 @@
+﻿USE DATABASE Movie;
+
+CREATE SCHEMA IF NOT EXISTS MovieLens;

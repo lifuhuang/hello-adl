@@ -1,0 +1,40 @@
+﻿USE DATABASE Movie;
+USE SCHEMA MovieLens;
+
+DECLARE @outputPath = "/output/movie/top10perGenre";
+
+@ratingsById =
+    SELECT movieId,
+           AVG(rating) AS avgRating
+    FROM Ratings
+    GROUP BY movieId
+    HAVING COUNT(*) >= 100;
+
+@movieRatings =
+    SELECT Movies.title AS title,
+           @ratingsById.avgRating AS avgRating,
+           SqlArray.Create(Movies.genres.Split('|')) AS genres
+    FROM Movies
+         INNER JOIN
+             @ratingsById
+         ON Movies.movieId == @ratingsById.movieId;
+
+@result =
+    SELECT DENSE_RANK() OVER(PARTITION BY genre ORDER BY avgRating DESC) AS rank,
+           avgRating,
+           genre,
+           title
+    FROM @movieRatings
+         CROSS APPLY
+             EXPLODE(genres) AS g(genre);
+
+@result =
+    SELECT *
+    FROM @result
+    WHERE rank <= 10;
+
+
+OUTPUT @result
+TO @outputPath
+ORDER BY genre, rank ASC
+USING Outputters.Csv(outputHeader : true);

@@ -1,0 +1,16 @@
+﻿USE DATABASE Movie;
+USE SCHEMA MovieLens;
+
+DROP TABLE IF EXISTS Ratings;
+
+CREATE TABLE IF NOT EXISTS Ratings
+(
+    userId int,
+    movieId int,
+    rating double,
+    timestamp int
+);
+
+CREATE CLUSTERED INDEX idx_Ratings ON Ratings(movieId ASC)
+DISTRIBUTED BY
+HASH(movieId);

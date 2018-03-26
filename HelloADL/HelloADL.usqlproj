@@ -1,0 +1,79 @@
+﻿<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>1a609c12-0426-49b1-bb4a-3e80c40407fd</ProjectGuid>
+    <OutputType>File</OutputType>
+    <AssemblyName>Algebra.xml</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <Name>HelloADL</Name>
+    <RootNamespace>HelloADL</RootNamespace>
+    <RuntimeVersion>default</RuntimeVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Script Include="Scripts\010 Create Movie Database.usql" />
+    <Script Include="Scripts\020 Create MovieRating Schema.usql" />
+    <Script Include="Scripts\030 Create Movies Table.usql" />
+    <Script Include="Scripts\040 Create Ratings Table.usql" />
+    <Script Include="Scripts\050 Populate Tables.usql" />
+    <Script Include="Scripts\060 Top 10 Movies Report.usql" />
+    <Script Include="Scripts\Top 10 Movies Report from Unstructured Data.usql" />
+    <ScriptCode Include="Scripts\010 Create Movie Database.usql.cs">
+      <DependentUpon>Scripts\010 Create Movie Database.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Scripts\020 Create MovieRating Schema.usql.cs">
+      <DependentUpon>Scripts\020 Create MovieRating Schema.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Scripts\030 Create Movies Table.usql.cs">
+      <DependentUpon>Scripts\030 Create Movies Table.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Scripts\040 Create Ratings Table.usql.cs">
+      <DependentUpon>Scripts\040 Create Ratings Table.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Scripts\050 Populate Tables.usql.cs">
+      <DependentUpon>Scripts\050 Populate Tables.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Scripts\060 Top 10 Movies Report.usql.cs">
+      <DependentUpon>Scripts\060 Top 10 Movies Report.usql</DependentUpon>
+    </ScriptCode>
+    <ScriptCode Include="Scripts\Top 10 Movies Report from Unstructured Data.usql.cs">
+      <DependentUpon>Scripts\Top 10 Movies Report from Unstructured Data.usql</DependentUpon>
+    </ScriptCode>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data" />
+    <Folder Include="Data\MovieLens-Complete" />
+    <Folder Include="Data\MovieLens-Small" />
+    <Folder Include="Scripts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\MovieLens-Complete\README.txt">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Data\MovieLens-Small\links.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Data\MovieLens-Small\movies.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Data\MovieLens-Small\ratings.csv">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Data\MovieLens-Small\README.txt">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Data\MovieLens-Small\tags.csv">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(AppData)\Microsoft\DataLake\MsBuild\1.0\Usql.targets" />
+</Project>
